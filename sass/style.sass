@@ -1,0 +1,114 @@
+@import 'normolize'
+@import 'fonts'
+@import 'elements'
+@import 'header'
+@import 'footer'
+
+main
+    min-height: calc( 100vh - 80px )
+    padding: 40px 0 100px
+    picture
+        display: inline
+
+    .col
+        max-width: 600px
+
+    h1
+        font-size: 50px
+        margin-bottom: 20px
+
+    p
+        margin-bottom: 40px
+        max-width: 490px
+
+    .main__img
+        width: 52%
+        display: inline-block
+        transform: scale(1.1)
+        transform-origin: 0 0
+        img
+            display: block
+            width: 100%
+
+    .btn
+        padding: 15px 57px 13px
+
+.item
+    width: 32%
+    position: relative
+    z-index: 1
+    overflow: hidden
+    
+    img
+        display: block
+        border-radius: 20px
+        aspect-ratio: 4/5
+        object-fit: cover
+
+    .btn
+        position: absolute
+        z-index: 111
+        width: 90%
+        right: 5%
+        bottom: 20px
+        transition: all 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940)
+        &:hover
+            opacity: 1
+        &.active
+            width: 55px
+            padding-left: 0
+            padding-right: 0
+            color: transparent
+            &::before
+                content: '×'
+                display: inline-block
+                vertical-align: middle
+                font-size: 50px
+                line-height: 105%
+                position: absolute
+                left: 0
+                top: 0
+                color: white
+                width: 100%
+                height: 100%
+                text-align: center
+
+    &-content
+        position: absolute
+        bottom: 0
+        left: 0
+        width: 100%
+        height: 100%
+        z-index: 11
+        background-color: #fbf3eb
+        padding: 20px 30px 20px 20px
+        opacity: 0
+        visibility: hidden
+        transform: translateY(100px)
+        transition: all 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940)
+        &.active
+            opacity: .9
+
+            visibility: visible
+            transform: translateY(0px)
+
+    p
+        font-weight: 400
+        font-size: 16px
+
+    .label
+        color: $prime
+
+    a
+        &:hover
+            text-decoration: underline
+
+    .text
+        display: block
+        font-size: 20px
+        margin-bottom: 20px
+
+    &_wrap 
+        justify-content: flex-start
+        gap: 30px 2% 
+        flex-wrap: wrap

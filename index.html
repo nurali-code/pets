@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Найди Домик</title>
+	<meta name="description"
+		content="Наш сервис - это обединение людей, которые неравнодушны к судьбе бездомных животных в г. Красноясрке">
+	<link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+<body>
+	<header class="wrap">
+		<p class="logo">Найди<mark>Домик</mark></p>
+		<nav>
+			<a href="#">ГЛАВНАЯ</a>
+			<a href="#">ИЩУТ ДОМИК</a>
+			<a href="#">ОСТАВИТЬ ЗАЯВКУ</a>
+		</nav>
+	</header>
+
+	<main class="wrap">
+		<div class="container wrap">
+			<div class="col">
+				<h1>
+					Ищите новый <br>
+					дом для пушистика?
+				</h1>
+				<p>
+					<mark>
+						Наш сервис - это обединение людей,
+						которые неравнодушны к судьбе
+						бездомных животных в г. Красноясрке
+					</mark>
+					<br> <br>
+					Если вы нашли бездомного животного, которое
+					попало в трудную жизненную ситуацию,
+					то с помощью нашего сервиса,
+					вы сможете найти для него новый дом
+				</p>
+				<a href="#" class="btn">Отправить заявку</a>
+			</div>
+			<picture class="main__img">
+				<source srcset="img/main.webp" type="image/webp">
+				<img src="img/main.png" alt="main">
+			</picture>
+		</div>
+	</main>
+
+	<section>
+		<div class="container">
+			<h2>Ищут новый дом</h2>
+			<div class="wrap item_wrap" id="container"></div>
+		</div>
+	</section>
+
+	<footer class="footer">
+		<div class="footer-top">
+			<div class="container wrap">
+				<div class="col">
+					<h2>
+						ЗАЯВКА НА
+						РАЗМЕЩЕНИЕ ПОСТА
+					</h2>
+					<p>
+						Если вы нашли бездомного животного, которое
+						попало в трудную жизненную ситуацию,
+						то с помощью нашего сервиса, <br>
+						вы сможете найти для него новый дом
+					</p>
+				</div>
+				<form id="savaData">
+					<input type="tel" name="imgSrc" required placeholder="Номер сот. телефона:">
+					<input type="text" name="phoneNumber" required placeholder="URL ссылка на фото:">
+					<textarea required name="animalDescription" cols="30" rows="8"
+						placeholder="Иформация о питомце:"></textarea>
+					<button type="submit" id="sendBtn" class="btn btn_2">Отправить заявку</button>
+				</form>
+			</div>
+		</div>
+		<p class="footer__bottom">Красноярск 2023</p>
+	</footer>
+</body>
+
+<script>
+
+	document.addEventListener('DOMContentLoaded', function () {
+		fetch('data.json')
+			.then(response => response.json())
+			.then(data => {
+				const container = document.getElementById('container');
+				data.forEach(item => {
+					const newItem = document.createElement('div');
+					newItem.classList.add('item');
+					const img = document.createElement('img');
+					img.setAttribute('loading', 'lazy');
+					img.setAttribute('src', item.imgSrc);
+					img.setAttribute('alt', 'img');
+					const btn = document.createElement('button');
+					btn.classList.add('btn', 'show');
+					btn.textContent = 'Подробнее';
+					const itemContent = document.createElement('div');
+					itemContent.classList.add('item-content');
+					const label1 = document.createElement('p');
+					label1.classList.add('label');
+					label1.textContent = 'Номер для связи:';
+					const phoneLink = document.createElement('a');
+					phoneLink.setAttribute('href', 'tel:' + item.phoneNumber);
+					phoneLink.classList.add('text');
+					phoneLink.textContent = item.phoneNumber;
+					const label2 = document.createElement('p');
+					label2.classList.add('label');
+					label2.textContent = 'О животном:';
+					const description = document.createElement('p');
+					description.classList.add('text');
+					description.textContent = item.animalDescription;
+					itemContent.appendChild(label1);
+					itemContent.appendChild(phoneLink);
+					itemContent.appendChild(label2);
+					itemContent.appendChild(description);
+					newItem.appendChild(img);
+					newItem.appendChild(btn);
+					newItem.appendChild(itemContent);
+					container.appendChild(newItem);
+				});
+			})
+			.catch(error => console.error('Ошибка загрузки данных:', error));
+
+
+		// ----------------
+
+		var container = document.getElementById('container');
+		container.addEventListener('click', function (event) {
+			var target = event.target;
+			if (target.classList.contains('show')) {
+				target.classList.toggle('active')
+				target.nextElementSibling.classList.toggle('active')
+			}
+		});
+
+		// ----------------
+
+		function submitForm(url, formId, sendBtnId) {
+			const form = document.getElementById(formId);
+			const sendBtn = document.getElementById(sendBtnId);
+
+			form.addEventListener("submit", (event) => {
+				event.preventDefault();
+				sendBtn.classList.add('loading');
+				const xhr = new XMLHttpRequest();
+				xhr.open("POST", url);
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.onreadystatechange = () => {
+					if (xhr.readyState === XMLHttpRequest.DONE) {
+						if (xhr.status === 200) {
+							alert("Спасибо, за заявку!");
+							form.reset();
+						} else {
+							alert("Произошла Ошибка!");
+						}
+						sendBtn.classList.remove('loading');
+					}
+				};
+				const formData = new FormData(form);
+				xhr.send(new URLSearchParams(formData).toString());
+			});
+		}
+
+		submitForm("save.php", "savaData", "sendBtn");
+
+
+	});
+
+
+
+</script>
+
+</html>
