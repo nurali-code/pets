@@ -16,6 +16,8 @@ main
     h1
         font-size: 50px
         margin-bottom: 20px
+        @media screen and ( max-width: 1500px )
+            font-size: 40px
 
     p
         margin-bottom: 40px
@@ -33,12 +35,20 @@ main
     .btn
         padding: 15px 57px 13px
 
+    @media screen and ( max-width: 1500px )
+        h1
+            font-size: 40px
+
+        .main__img
+            width: 45%
+            transform: scale(1)
+
 .item
     width: 32%
     position: relative
     z-index: 1
     overflow: hidden
-    
+
     img
         display: block
         border-radius: 20px
@@ -108,7 +118,7 @@ main
         font-size: 20px
         margin-bottom: 20px
 
-    &_wrap 
+    &_wrap
         justify-content: flex-start
-        gap: 30px 2% 
+        gap: 30px 2%
         flex-wrap: wrap
