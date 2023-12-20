@@ -7,6 +7,10 @@
 	<title>Найди Домик</title>
 	<meta name="description"
 		content="Наш сервис - это обединение людей, которые неравнодушны к судьбе бездомных животных в г. Красноясрке">
+
+	<link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
+	<meta name="theme-color" content="#f8563b" />
+	<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8563b" />
 	<link rel="stylesheet" href="./css/style.css">
 
 </head>
@@ -40,7 +44,7 @@
 					то с помощью нашего сервиса,
 					вы сможете найти для него новый дом
 				</p>
-				<a href="#" class="btn">Отправить заявку</a>
+				<a href="#footer" class="btn">Оставить заявку</a>
 			</div>
 			<picture class="main__img">
 				<source srcset="img/main.webp" type="image/webp">
@@ -72,11 +76,19 @@
 					</p>
 				</div>
 				<form id="savaData">
-					<input type="tel" name="imgSrc" required placeholder="Номер сот. телефона:">
-					<input type="text" name="phoneNumber" required placeholder="URL ссылка на фото:">
-					<textarea required name="animalDescription" cols="30" rows="8"
-						placeholder="Иформация о питомце:"></textarea>
-					<button type="submit" id="sendBtn" class="btn btn_2">Отправить заявку</button>
+					<input type="tel" name="phoneNumber" id="phone" required placeholder="Номер сот. телефона:">
+					<div class="row">
+						<input type="text" oninput="validateImgSrc()" name="imgSrc" id="imgSrc" required
+							placeholder="URL ссылка на фото:">
+						<p id="imgSrcError"></p>
+
+					</div>
+					<div class="row">
+						<textarea oninput="updateCharacterCount()" id="animalDescription" required
+							name="animalDescription" cols="30" rows="11" placeholder="Иформация о питомце:"></textarea>
+						<p class="amaunt"><span id="amaunt">0</span>/400</p>
+					</div>
+					<button type="submit" id="sendBtn" class="btn btn_2">Оставить заявку</button>
 				</form>
 			</div>
 		</div>
@@ -84,70 +96,110 @@
 	</footer>
 </body>
 
+<script src="./js/inputmask.min.js"></script>
+
 <script>
 
-	document.addEventListener('DOMContentLoaded', function () {
-		fetch('data.json')
-			.then(response => response.json())
-			.then(data => {
-				const container = document.getElementById('container');
-				data.forEach(item => {
-					const newItem = document.createElement('div');
-					newItem.classList.add('item');
-					const img = document.createElement('img');
-					img.setAttribute('loading', 'lazy');
-					img.setAttribute('src', item.imgSrc);
-					img.setAttribute('alt', 'img');
-					const btn = document.createElement('button');
-					btn.classList.add('btn', 'show');
-					btn.textContent = 'Подробнее';
-					const itemContent = document.createElement('div');
-					itemContent.classList.add('item-content');
-					const label1 = document.createElement('p');
-					label1.classList.add('label');
-					label1.textContent = 'Номер для связи:';
-					const phoneLink = document.createElement('a');
-					phoneLink.setAttribute('href', 'tel:' + item.phoneNumber);
-					phoneLink.classList.add('text');
-					phoneLink.textContent = item.phoneNumber;
-					const label2 = document.createElement('p');
-					label2.classList.add('label');
-					label2.textContent = 'О животном:';
-					const description = document.createElement('p');
-					description.classList.add('text');
-					description.textContent = item.animalDescription;
-					itemContent.appendChild(label1);
-					itemContent.appendChild(phoneLink);
-					itemContent.appendChild(label2);
-					itemContent.appendChild(description);
-					newItem.appendChild(img);
-					newItem.appendChild(btn);
-					newItem.appendChild(itemContent);
-					container.appendChild(newItem);
-				});
-			})
-			.catch(error => console.error('Ошибка загрузки данных:', error));
+	function updateCharacterCount() {
+		var textarea = document.getElementById('animalDescription');
+		var countSpan = document.getElementById('amaunt');
+		var currentCount = textarea.value.length;
+		countSpan.textContent = currentCount;
+		var maxLength = 400;
+		if (currentCount > maxLength) {
+			textarea.value = textarea.value.slice(0, maxLength);
+			countSpan.textContent = maxLength;
+		}
+	}
+
+	// -------------------------
+
+	function validateImgSrc() {
+		var imgSrcInput = document.getElementById('imgSrc');
+		var imgSrcError = document.getElementById('imgSrcError');
+		var imgSrcValue = imgSrcInput.value;
+		var urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+		if (urlRegex.test(imgSrcValue)) {
+			imgSrcError.textContent = ''; // Очищаем сообщение об ошибке
+			imgSrcInput.classList.remove('error')
+		} else {
+			imgSrcInput.classList.add('error')
+			imgSrcError.textContent = 'Введите корректную ссылку на изображение.';
+		}
+	}
+
+	// -------------------------
+
+	const phone = document.getElementById('phone');
+	let im = new Inputmask("+7 (999)-99-99-99"); im.mask(phone);
+
+	// -------------------------
+
+	fetch('data.json')
+		.then(response => response.json())
+		.then(data => {
+			const container = document.getElementById('container');
+			data.forEach(item => {
+				const newItem = document.createElement('div');
+				newItem.classList.add('item');
+				const img = document.createElement('img');
+				img.setAttribute('loading', 'lazy');
+				img.setAttribute('src', item.imgSrc);
+				img.setAttribute('alt', 'img');
+				const btn = document.createElement('button');
+				btn.classList.add('btn', 'show');
+				btn.textContent = 'Подробнее';
+				const itemContent = document.createElement('div');
+				itemContent.classList.add('item-content');
+				const label1 = document.createElement('p');
+				label1.classList.add('label');
+				label1.textContent = 'Номер для связи:';
+				const phoneLink = document.createElement('a');
+				phoneLink.setAttribute('href', 'tel:' + item.phoneNumber);
+				phoneLink.classList.add('text');
+				phoneLink.textContent = item.phoneNumber;
+				const label2 = document.createElement('p');
+				label2.classList.add('label');
+				label2.textContent = 'О животном:';
+				const description = document.createElement('p');
+				description.classList.add('text');
+				description.textContent = item.animalDescription;
+				itemContent.appendChild(label1);
+				itemContent.appendChild(phoneLink);
+				itemContent.appendChild(label2);
+				itemContent.appendChild(description);
+				newItem.appendChild(img);
+				newItem.appendChild(btn);
+				newItem.appendChild(itemContent);
+				container.appendChild(newItem);
+			});
+		})
+		.catch(error => console.error('Ошибка загрузки данных:', error));
 
 
-		// ----------------
+	// ----------------
 
-		var container = document.getElementById('container');
-		container.addEventListener('click', function (event) {
-			var target = event.target;
-			if (target.classList.contains('show')) {
-				target.classList.toggle('active')
-				target.nextElementSibling.classList.toggle('active')
-			}
-		});
+	var container = document.getElementById('container');
+	container.addEventListener('click', function (event) {
+		var target = event.target;
+		if (target.classList.contains('show')) {
+			target.classList.toggle('active')
+			target.nextElementSibling.classList.toggle('active')
+		}
+	});
 
-		// ----------------
+	// ----------------
 
-		function submitForm(url, formId, sendBtnId) {
-			const form = document.getElementById(formId);
-			const sendBtn = document.getElementById(sendBtnId);
+	function submitForm(url, formId, sendBtnId) {
+		const form = document.getElementById(formId);
+		const sendBtn = document.getElementById(sendBtnId);
+		var imgSrcInput = document.getElementById('imgSrc');
 
-			form.addEventListener("submit", (event) => {
-				event.preventDefault();
+		form.addEventListener("submit", (event) => {
+			event.preventDefault();
+			if (imgSrcInput.classList.contains('error')) {
+				imgSrcInput.focus
+			} else {
 				sendBtn.classList.add('loading');
 				const xhr = new XMLHttpRequest();
 				xhr.open("POST", url);
@@ -165,14 +217,11 @@
 				};
 				const formData = new FormData(form);
 				xhr.send(new URLSearchParams(formData).toString());
-			});
-		}
+			}
+		});
+	}
 
-		submitForm("save.php", "savaData", "sendBtn");
-
-
-	});
-
+	submitForm("save.php", "savaData", "sendBtn");
 
 
 </script>

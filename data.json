@@ -1,17 +1,22 @@
 [
     {
-        "imgSrc": "img/1.jpg",
+        "imgSrc": "img\/1.jpg",
         "phoneNumber": "79832088047",
-        "animalDescription": "Была замечена на улице Щорса. Возожно кто-то потерял."
+        "animalDescription": "\u0411\u044b\u043b\u0430 \u0437\u0430\u043c\u0435\u0447\u0435\u043d\u0430 \u043d\u0430 \u0443\u043b\u0438\u0446\u0435 \u0429\u043e\u0440\u0441\u0430. \u0412\u043e\u0437\u043e\u0436\u043d\u043e \u043a\u0442\u043e-\u0442\u043e \u043f\u043e\u0442\u0435\u0440\u044f\u043b."
     },
     {
-        "imgSrc": "img/2.jpg",
+        "imgSrc": "img\/2.jpg",
         "phoneNumber": "79832088047",
-        "animalDescription": "Была замечена на улице Щорса. Возожно кто-то потерял."
+        "animalDescription": "\u0411\u044b\u043b\u0430 \u0437\u0430\u043c\u0435\u0447\u0435\u043d\u0430 \u043d\u0430 \u0443\u043b\u0438\u0446\u0435 \u0429\u043e\u0440\u0441\u0430. \u0412\u043e\u0437\u043e\u0436\u043d\u043e \u043a\u0442\u043e-\u0442\u043e \u043f\u043e\u0442\u0435\u0440\u044f\u043b."
     },
     {
-        "imgSrc": "img/3.jpg",
+        "imgSrc": "img\/3.jpg",
         "phoneNumber": "79832088047",
-        "animalDescription": "Была замечена на улице Щорса. Возожно кто-то потерял."
+        "animalDescription": "\u0411\u044b\u043b\u0430 \u0437\u0430\u043c\u0435\u0447\u0435\u043d\u0430 \u043d\u0430 \u0443\u043b\u0438\u0446\u0435 \u0429\u043e\u0440\u0441\u0430. \u0412\u043e\u0437\u043e\u0436\u043d\u043e \u043a\u0442\u043e-\u0442\u043e \u043f\u043e\u0442\u0435\u0440\u044f\u043b."
+    },
+    {
+        "imgSrc": "https:\/\/img.freepik.com\/premium-photo\/dog-latex-stylish-fashion-funny-animal-concept-pet-colourful-art-generative-ai_163305-175537.jpg",
+        "phoneNumber": "29291919191",
+        "animalDescription": "Premium Photo | Dog latex stylish fashion funny animal concept pet colourful art generative ai"
     }
 ]

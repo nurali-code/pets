@@ -21,13 +21,38 @@
 
     &__bottom
         text-align: center
-        margin: 20px auto 0 
+        margin: 20px auto 0
         opacity: .6
         font-weight: 500
 
     .col
         padding-top: 40px
         max-width: 52%
+
+    .row
+        position: relative
+        z-index: 1
+
+    #imgSrcError
+        font-size: 14px
+        color: $second
+        opacity: .9
+        position: relative
+        left: 20px
+        bottom: 14px
+
+    .error
+        border: 1px solid $second
+
+    .amaunt
+        position: absolute
+        right: 20px
+        bottom: 38px
+        pointer-events: none
+        z-index: 1000
+        color: $second
+        font-size: 14px
+        opacity: .5
 
     p
         max-width: 500px
