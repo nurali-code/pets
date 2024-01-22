@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=1400">
 	<title>Найди Домик</title>
 	<meta name="description"
 		content="Наш сервис - это обединение людей, которые неравнодушны к судьбе бездомных животных в г. Красноясрке">
@@ -120,7 +120,7 @@
 		var imgSrcValue = imgSrcInput.value;
 		var urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
 		if (urlRegex.test(imgSrcValue)) {
-			imgSrcError.textContent = ''; // Очищаем сообщение об ошибке
+			imgSrcError.textContent = ''; 
 			imgSrcInput.classList.remove('error')
 		} else {
 			imgSrcInput.classList.add('error')
@@ -131,11 +131,11 @@
 	// -------------------------
 
 	const phone = document.getElementById('phone');
-	let im = new Inputmask("+7 (999)-99-99-99"); im.mask(phone);
+	let im = new Inputmask("+7 (999)-999-99-99"); im.mask(phone);
 
 	// -------------------------
 
-	fetch('data.json')
+	fetch('data.json?' + new Date().getTime())
 		.then(response => response.json())
 		.then(data => {
 			const container = document.getElementById('container');
